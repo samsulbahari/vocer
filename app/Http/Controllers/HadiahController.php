@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreHadiahRequest;
 use App\Models\Hadiah;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,11 @@ class HadiahController extends Controller
      */
     public function index()
     {
-        //
+        $hadiah = Hadiah::get();
+        return response()->json([
+            'message'   => 'success get data',
+            'data'  =>$hadiah
+        ]);
     }
 
     /**
@@ -22,9 +27,9 @@ class HadiahController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(StoreHadiahRequest $request)
     {
-        //
+   
     }
 
     /**
@@ -33,9 +38,13 @@ class HadiahController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreHadiahRequest $request)
     {
-        //
+        $validated = $request->validated();
+        Hadiah::insert($validated);
+        return response()->json([
+            'message'   => 'success insert',
+        ],200);
     }
 
     /**
@@ -67,9 +76,14 @@ class HadiahController extends Controller
      * @param  \App\Models\Hadiah  $hadiah
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Hadiah $hadiah)
+    public function update(StoreHadiahRequest $request, Hadiah $hadiah)
     {
-        //
+        $validated = $request->validated();
+        Hadiah::where('id',$hadiah->id)->update($validated);
+        return response()->json([
+            'message' => 'success update',
+            
+        ],200);
     }
 
     /**
@@ -80,6 +94,11 @@ class HadiahController extends Controller
      */
     public function destroy(Hadiah $hadiah)
     {
-        //
+        Hadiah::where('id',$hadiah->id)->delete();
+        return response()->json([
+            'message' => 'success delete',
+            
+        ],200);
+        
     }
 }
