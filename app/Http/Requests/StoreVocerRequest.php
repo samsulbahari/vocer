@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreHadiahRequest extends FormRequest
+class StoreVocerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class StoreHadiahRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama'  => 'required'
+            'id_hadiah' => 'required',
+            'type' => 'required',
         ];
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\HadiahController;
+use App\Http\Controllers\SpinController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VocerController;
 use App\Models\Hadiah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::post('/login', [UserController::class, 'login']);
+Route::post('/spin', [SpinController::class, 'spin']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::resource('hadiah', HadiahController::class);    
+    Route::resource('vocer', VocerController::class);    
 });
