@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/spin', [SpinController::class, 'spin']);
+Route::get('/get_hadiah', [SpinController::class, 'get_hadiah']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
     Route::resource('hadiah', HadiahController::class);    
