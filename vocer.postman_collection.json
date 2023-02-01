@@ -899,7 +899,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_hadiah\" : 3,\r\n    \"type\"      : 1,\r\n    \"jumlah\" : 2\r\n}",
+							"raw": "{\r\n    \"id_hadiah\" : \"\",\r\n    \"type\"      : 1,\r\n    \"jumlah\" : 2\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1311,7 +1311,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"vocer\" : \"cR1MPgg\"\r\n}",
+							"raw": "{\r\n    \"vocer\" : \"1Euz285\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1322,6 +1322,26 @@
 							"raw": "{{base_url_local}}spin",
 							"host": [
 								"{{base_url_local}}spin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get hadiah",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url_local}}get_hadiah",
+							"host": [
+								"{{base_url_local}}get_hadiah"
 							]
 						}
 					},
@@ -1355,6 +1375,10 @@
 			"key": "token",
 			"value": "2|xifl2nfmnl7QrIyEHxDk8kX8XBLPLwZoN19812Ir",
 			"type": "string"
+		},
+		{
+			"key": "base_url_local",
+			"value": "103.10.60.218:8000/api/"
 		}
 	]
 }
