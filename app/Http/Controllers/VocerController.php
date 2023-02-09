@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str; 
 class VocerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('admin')->except(['index','update']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -114,7 +118,13 @@ class VocerController extends Controller
      */
     public function update(Request $request, Vocer $vocer)
     {
-        //
+        Vocer::where('id',$vocer->id)->update([
+            'player_name' => $request->player_name
+        ]);
+        return response()->json([
+            'message' => 'success update',
+            
+        ],200);
     }
 
     /**

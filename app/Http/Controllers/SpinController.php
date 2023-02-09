@@ -15,7 +15,7 @@ class SpinController extends Controller
 
         $check_vocer = Vocer::with('hadiahs')->where('code',$request->vocer)->first();
 
-        if($check_vocer)
+        if($check_vocer == true and $check_vocer->player_name != null )
         {
             if($check_vocer->status == 1){
                 if($check_vocer->id_hadiah != null){

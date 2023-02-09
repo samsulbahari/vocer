@@ -23,6 +23,6 @@ Route::post('/spin', [SpinController::class, 'spin']);
 Route::get('/get_hadiah', [SpinController::class, 'get_hadiah']);
 
 Route::middleware(['auth:sanctum'])->group(function(){
-    Route::resource('hadiah', HadiahController::class);    
-    Route::resource('vocer', VocerController::class);    
+    Route::resource('hadiah', HadiahController::class)->middleware('admin');    
+    Route::resource('vocer', VocerController::class);      
 });
