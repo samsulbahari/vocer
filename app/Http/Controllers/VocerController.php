@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreVocerRequest;
 use App\Models\Vocer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str; 
 class VocerController extends Controller
 {
@@ -19,7 +20,12 @@ class VocerController extends Controller
      */
     public function index()
     {
-        $vocer = Vocer::with('hadiahs')->paginate(10);
+        if(Auth::user()->role == 1){
+            $vocer = Vocer::with('hadiahs')->paginate(10);
+        }else{
+            $vocer = Vocer::with('hadiahs')->inRandomOrder()->paginate(10);
+        }
+       
         return response()->json(['message'=> 'succes get data',
                                  'data' => $vocer
                                 ]);

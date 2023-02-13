@@ -24,7 +24,8 @@ class StoreHadiahRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama'  => 'required'
+            'nama'  => 'required',
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ];
     }
 }

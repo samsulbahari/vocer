@@ -41,7 +41,11 @@ class HadiahController extends Controller
     public function store(StoreHadiahRequest $request)
     {
         $validated = $request->validated();
-        Hadiah::insert($validated);
+        $path = $request->file('image')->store('public/images');
+        $explode = explode('/',$path);
+        Hadiah::insert(['nama' => $request->nama,
+                        'image' => asset('storage/images/'.$explode[2])
+                      ]);
         return response()->json([
             'message'   => 'success insert',
         ],200);
@@ -78,6 +82,7 @@ class HadiahController extends Controller
      */
     public function update(StoreHadiahRequest $request, Hadiah $hadiah)
     {
+    
         $validated = $request->validated();
         Hadiah::where('id',$hadiah->id)->update($validated);
         return response()->json([

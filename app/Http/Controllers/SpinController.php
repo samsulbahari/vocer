@@ -73,14 +73,20 @@ class SpinController extends Controller
     public function get_hadiah(Request $request){
         $data = [];
 
-        $hadiahs = Hadiah::select('nama')->orderBy('id','asc')->get();
+        $hadiahs = Hadiah::select('nama','image')->orderBy('id','asc')->get();
         
         foreach($hadiahs as $hadiah){
            
-                array_push($data,$hadiah->nama);
+            $data_array = [
+                'nama' => $hadiah->nama,
+                'image' => $hadiah->image
+            ];
+                array_push($data,$data_array);
         }
 
-        array_push($data,'zonk');
+        array_push($data,['nama' => 'zonk',
+                          'image' => 'https://img.freepik.com/premium-vector/comic-speech-bubble-with-zonk-text_530597-456.jpg?w=740'
+                         ]);
 
         return response()->json(['data' => $data,
                                  'message' => 'succes get data'
