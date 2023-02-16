@@ -38,7 +38,7 @@ class SpinController extends Controller
                         'status' => 1
                     ]);
                     return response()->json([
-                        'message' => 'vocer ZONK !!',
+                        'message' => 'Maaf '.$check_vocer->player_name.' anda belum beruntung, silahkan coba lagi !',
                         'array_hadiah' => count($hadiahs)
                     ]);
                 }else{
@@ -54,7 +54,7 @@ class SpinController extends Controller
                         'status' => 1
                     ]);
                     return response()->json([
-                        'message' => 'Selamat anda mendapatkan '.$check_vocer->hadiahs->nama,
+                        'message' => 'Selamat '.$check_vocer->player_name.' mendapatkan '.$check_vocer->hadiahs->nama,
                         'array_hadiah' => $array_hadiah,
                     ]);
                 }
