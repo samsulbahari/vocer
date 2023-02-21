@@ -73,13 +73,12 @@ class SpinController extends Controller
     public function get_hadiah(Request $request){
         $data = [];
 
-        $hadiahs = Hadiah::select('nama','image')->orderBy('id','asc')->get();
+        $hadiahs = Hadiah::select('nama')->orderBy('id','asc')->get();
         
         foreach($hadiahs as $hadiah){
            
             $data_array = [
-                'nama' => $hadiah->nama,
-                'image' => $hadiah->image
+                'nama' => $hadiah->nama
             ];
                 array_push($data,$data_array);
         }

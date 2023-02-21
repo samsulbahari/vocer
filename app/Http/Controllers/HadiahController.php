@@ -41,10 +41,9 @@ class HadiahController extends Controller
     public function store(StoreHadiahRequest $request)
     {
         $validated = $request->validated();
-        $path = $request->file('image')->store('public/images');
-        $explode = explode('/',$path);
-        Hadiah::insert(['nama' => $request->nama,
-                        'image' => asset('storage/images/'.$explode[2])
+        // $path = $request->file('image')->store('public/images');
+        // $explode = explode('/',$path);
+        Hadiah::insert(['nama' => $request->nama
                       ]);
         return response()->json([
             'message'   => 'success insert',
