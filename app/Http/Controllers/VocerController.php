@@ -21,49 +21,54 @@ class VocerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if(Auth::user()->role == 1){
             $vocer = Vocer::with('hadiahs')->paginate(10);
         }else{
-
-           $vocer = [];
-            $vocer_with_playername = Vocer::with('hadiahs')
+    
+          if($request->is_show_player_name){
+            
+            $vocer = Vocer::with('hadiahs')
                                           ->whereNotNull('player_name')
-                                          ->get();
+                                          ->paginate(10);
                                         
-            foreach($vocer_with_playername as $player_name){
-                $data = [
-                    'id' =>$player_name->id,
-                    "code" => $player_name->code,
-                    "type" => $player_name->type,
-                    "id_hadiah" => $player_name->id_hadiah,
-                    "status" => $player_name->status,
-                    "player_name" => $player_name->player_name,
-                    "hadiahs" => $player_name->hadiahs
-                ];
-                array_push($vocer,$data);
-            }
+            // foreach($vocer_with_playername as $player_name){
+            //     $data = [
+            //         'id' =>$player_name->id,
+            //         "code" => $player_name->code,
+            //         "type" => $player_name->type,
+            //         "id_hadiah" => $player_name->id_hadiah,
+            //         "status" => $player_name->status,
+            //         "player_name" => $player_name->player_name,
+            //         "hadiahs" => $player_name->hadiahs
+            //     ];
+            //     array_push($vocer,$data);
+            // }
+          }else{
+                
+            $vocer = Vocer::with('hadiahs')->inRandomOrder()
+                                        ->whereNull('player_name')
+                                        ->paginate(10);
+            // foreach($vocer_without_playername as $player_names){
+            //     $data = [
+            //     'id' =>$player_names->id,
+            //     "code" => $player_names->code,
+            //     "type" => $player_names->type,
+            //     "id_hadiah" => $player_names->id_hadiah,
+            //     "status" => $player_names->status,
+            //     "player_name" => $player_names->player_names,
+            //     "hadiahs" => $player_names->hadiahs
+            //     ];
+            //     array_push($vocer,$data);
+            //     }
+          }
+          
 
-            $vocer_without_playername = Vocer::with('hadiahs')->inRandomOrder()
-                                          ->whereNull('player_name')
-                                          ->get();
-            foreach($vocer_without_playername as $player_names){
-                 $data = [
-                            'id' =>$player_names->id,
-                             "code" => $player_names->code,
-                             "type" => $player_names->type,
-                             "id_hadiah" => $player_names->id_hadiah,
-                             "status" => $player_names->status,
-                              "player_name" => $player_names->player_names,
-                             "hadiahs" => $player_names->hadiahs
-                        ];
-                         array_push($vocer,$data);
-            }
             
           
            
-           $vocer = $this->paginate($vocer);
+        
            
 
             
@@ -74,13 +79,7 @@ class VocerController extends Controller
                                 ]);
     }
 
-    public function paginate($items, $perPage = 10, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-    }
-
+   
     /**
      * Show the form for creating a new resource.
      *
