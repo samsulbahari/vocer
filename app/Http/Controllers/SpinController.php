@@ -39,7 +39,8 @@ class SpinController extends Controller
                     ]);
                     return response()->json([
                         'message' => 'Maaf '.$check_vocer->player_name.' anda belum beruntung, silahkan coba lagi !',
-                        'array_hadiah' => count($hadiahs)
+                        'array_hadiah' => count($hadiahs),
+                        'isWin' => false
                     ]);
                 }else{
 
@@ -56,6 +57,7 @@ class SpinController extends Controller
                     return response()->json([
                         'message' => 'Selamat '.$check_vocer->player_name.' mendapatkan '.$check_vocer->hadiahs->nama,
                         'array_hadiah' => $array_hadiah,
+                        'isWin' => true
                     ]);
                 }
             }
