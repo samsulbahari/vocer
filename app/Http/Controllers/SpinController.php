@@ -77,15 +77,11 @@ class SpinController extends Controller
         
         foreach($hadiahs as $hadiah){
            
-            $data_array = [
-                'nama' => $hadiah->nama
-            ];
+            $data_array = $hadiah->nama;
                 array_push($data,$data_array);
         }
 
-        array_push($data,['nama' => 'zonk',
-                          'image' => 'https://img.freepik.com/premium-vector/comic-speech-bubble-with-zonk-text_530597-456.jpg?w=740'
-                         ]);
+        array_push($data,'zonk');
 
         return response()->json(['data' => $data,
                                  'message' => 'succes get data'
