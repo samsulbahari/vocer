@@ -26,8 +26,10 @@ class VocerController extends Controller
         if(Auth::user()->role == 1){
             $vocer = Vocer::with('hadiahs')->paginate(10);
         }else{
+            
+        $filter = $_GET['show_playername'];
     
-          if($request->is_show_player_name){
+          if($filter == "true"){
             
             $vocer = Vocer::with('hadiahs')
                                           ->whereNotNull('player_name')
