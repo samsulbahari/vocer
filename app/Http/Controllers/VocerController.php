@@ -33,6 +33,7 @@ class VocerController extends Controller
             
             $vocer = Vocer::with('hadiahs')
                                           ->whereNotNull('player_name')
+                                          ->orderBy('updated_at','desc')
                                           ->paginate(10);
                                         
             // foreach($vocer_with_playername as $player_name){
