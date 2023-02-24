@@ -23,8 +23,14 @@ class VocerController extends Controller
      */
     public function index(Request $request)
     {
+        $search =  $_GET['search'];
         if(Auth::user()->role == 1){
-            $vocer = Vocer::with('hadiahs')->paginate(10);
+            $vocer = Vocer::with('hadiahs')
+                                ->when($search, function ($query, $search) {
+                                    return $query->where('code','like','%'.$search.'%')
+                                    ->orWhere('player_name','like','%'.$search.'%');
+                                })
+                                ->paginate(10);
         }else{
             
         $filter = $_GET['show_playername'];
@@ -34,6 +40,10 @@ class VocerController extends Controller
             $vocer = Vocer::with('hadiahs')
                                           ->whereNotNull('player_name')
                                           ->orderBy('updated_at','desc')
+                                          ->when($search, function ($query, $search) {
+                                            return $query->where('code','like','%'.$search.'%')
+                                            ->orWhere('player_name','like','%'.$search.'%');
+                                        })
                                           ->paginate(10);
                                         
             // foreach($vocer_with_playername as $player_name){
@@ -52,6 +62,10 @@ class VocerController extends Controller
                 
             $vocer = Vocer::with('hadiahs')->inRandomOrder()
                                         ->whereNull('player_name')
+                                        ->when($search, function ($query, $search) {
+                                            return $query->where('code','like','%'.$search.'%')
+                                            ->orWhere('player_name','like','%'.$search.'%');
+                                        })
                                         ->paginate(10);
             // foreach($vocer_without_playername as $player_names){
             //     $data = [
